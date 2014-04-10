@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Define application-level beans here. -->
+	<!-- E.g. services, repositories, etc.    -->
+
+	<bean name="dataSource" class="org.apache.commons.dbcp.BasicDataSource"> 
+		<property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
+		<property name="url" value="jdbc:derby://localhost:1527/C:/spring2014/SpringDev/SpringDev/Databases/Employees" />
+		<property name="username" value="user" />
+		<property name="password" value="password" />
+	</bean>
+
+</beans>
