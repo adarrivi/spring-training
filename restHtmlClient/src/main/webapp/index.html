@@ -1,82 +1,29 @@
 <html>
-  <head>
-   	<title>Demo using Ajax with jQuery</title>
-   	
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-   	
-	<script type="text/javascript">
+<head>
+<title>Employee Demo using JQuery</title>
 
-		var baseAddress = "http://localhost:8080/restWebService/services";
+<script
+	src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript" src="js/Employee.js"></script>
+</head>
+<body>
 
-		function doGetEmployeeAsXml() {
-			$.ajax({
-                type: "GET",
-                url: baseAddress + "/employeePv/" + $("#employeeId").val(),
-                headers: { "Accept": "application/xml" },
-                
-                success: function (dataXmlDom) {
-                	/* 
-                	 * dataXmlDom is a DOM tree, with the following structure:
-                	 *    <mypackage.employee>
-                	 *        <id>1</id>
-                	 *        <name>Andy</name>
-                	 *        <salary>1000</salary>
-                	 *    </mypackage.employee>
-                	 *
-                	 * So we have to use the DOM API to pick out the value for each element.
-                	 * Now you know why people prefer to use JSON rather than XML!!!
-					 */                	 
-					var id     = dataXmlDom.documentElement.children[0].textContent;   
-					var name   = dataXmlDom.documentElement.children[1].textContent;   
-					var salary = dataXmlDom.documentElement.children[2].textContent;   
+	<h3>Employee Demo</h3>
+	Id:
+	<input type="text" id="employeeId" /> Name:
+	<input type="text" id="employeeName" /> Salary:
+	<input type="text" id="salary" />
+	<button onclick="saveUpdateEmployee()">Save/Update employee</button>
+	<br/>
+	<button onclick="doGetEmployeesAsXml()">Get All Employees As
+		XML</button>
+	<button onclick="doGetEmployeesAsJson()">Get All Employees As
+		JSON</button>
+	<br />
+	<br />
 
-					var strMessage = "Employee data, after parsing XML: [" + id + "] " + name + ", salary " + salary;
-					$("#myMessageArea").html(strMessage);
-                },
+	<h3>Results</h3>
+	<p id="myMessageArea"></p>
 
-                error: function (xhr, message, errorThrown) {
-                    alert("Ajax error occurred: " + message);
-                }
-            });		
-        }
-
-		function doGetEmployeeAsJson() {
-			
-			$.ajax({
-                type: "GET",
-                url: baseAddress + "/employeePv/" + $("#employeeId").val(),
-                headers: { "Accept": "application/json" },
-                
-                success: function (dataObj) {
-
-                	// Process the returned object... give the employee a pay rise :-)
-                	dataObj.employee.salary *= 2;
-
-                	// Convert the object into a string, to display on web page.
-                    var strMessage = "JSON result, after doubling salary: " + JSON.stringify(dataObj);
-					$("#myMessageArea").html(strMessage);
-                },
-
-                error: function (xhr, message, errorThrown) {
-                    alert("Ajax error occurred: " + message);
-                }
-            });		
-        }
-        
-    </script>  
-  </head>
-  <body>
-  
-	  <h3>Demo using Ajax with jQuery</h3>
-	
-	  <input type="text" id="employeeId" />
-	  <button onclick="doGetEmployeeAsXml()">Get Employee As XML</button> 
-	  <button onclick="doGetEmployeeAsJson()">Get Employee As JSON</button> 
-	  <br /> <br />
-	
-	
-	  <h3>Results</h3>
-	  <p id="myMessageArea"></p>
-
-  </body>
-</html> 
+</body>
+</html>
