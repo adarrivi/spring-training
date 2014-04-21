@@ -1,7 +1,8 @@
 package com.adarrivi.webservice.server.core.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import com.adarrivi.webservice.server.core.service.EmployeeService;
 @Service
 class EmployeeServiceFakeImpl implements EmployeeService {
 
-    private List<Employee> employees = new ArrayList<>();
+    private Set<Employee> employees = new HashSet<>();
 
     @Override
     public void insert(Employee employee) {
@@ -20,10 +21,10 @@ class EmployeeServiceFakeImpl implements EmployeeService {
 
     @Override
     public void update(Employee employee) {
-        int employeeIndex = employees.indexOf(employee);
-        if (employeeIndex != -1) {
-            employees.add(employeeIndex, employee);
-        }
+        // Dirty trick to update the set, taking into consideration the the
+        // employee 'key' is the name
+        employees.remove(employee);
+        employees.add(employee);
     }
 
     @Override
@@ -44,7 +45,7 @@ class EmployeeServiceFakeImpl implements EmployeeService {
     }
 
     @Override
-    public List<Employee> getEmployees() {
+    public Collection<Employee> getEmployees() {
         return employees;
     }
 }

@@ -43,6 +43,10 @@ public class Employee {
         return "Employee [id=" + id + ", name=" + name + ", salary=" + salary + "]";
     }
 
+    public void doubleSalary() {
+        salary += salary;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(name);

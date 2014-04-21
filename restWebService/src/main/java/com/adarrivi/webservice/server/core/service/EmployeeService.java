@@ -1,6 +1,6 @@
 package com.adarrivi.webservice.server.core.service;
 
-import java.util.List;
+import java.util.Collection;
 
 import com.adarrivi.webservice.server.core.domain.Employee;
 
@@ -12,5 +12,5 @@ public interface EmployeeService {
 
     void delete(int id);
 
-    List<Employee> getEmployees();
+    Collection<Employee> getEmployees();
 }

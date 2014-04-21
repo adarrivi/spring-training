@@ -1,8 +1,11 @@
 package com.adarrivi.webservice.client;
 
+import java.util.Collection;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -11,26 +14,24 @@ class RestClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RestClient.class);
 
-    private static final String FAKE_BASE_URL = "http://localhost:8080/restWebService/services/fake/sampleEmployee";
+    private static final String BASE_URL = "http://localhost:8080/restWebService/services/employee";
 
     @Autowired
     private RestTemplate restTemplate;
 
     public void doRestCalls() {
+        Employee newEmployee = new Employee(1, "Tyrion Lannister", 2000);
+        restTemplate.postForEntity(BASE_URL, newEmployee, newEmployee.getClass());
+        newEmployee.doubleSalary();
+        restTemplate.put(BASE_URL, newEmployee);
+        LOGGER.debug("All employees: {}", requestAllEmployees());
+        restTemplate.delete(BASE_URL + "/" + newEmployee.getId());
+        LOGGER.debug("All employees: {}", requestAllEmployees());
+    }
 
-        Employee employee = restTemplate.getForObject(FAKE_BASE_URL, Employee.class);
-        LOGGER.debug("Found: {}", employee);
-
-        // // GET ALL ITEMS and display them.
-        // System.out.println("All CatalogItems:");
-        // CatalogItemCollection coll = restTemplate.getForObject(BASE_URL +
-        // "/items", CatalogItemCollection.class);
-        // for (CatalogItem item : coll.getCatalogItems()) {
-        // System.out.println("\tCatalogItem as obj:\t" + item);
-        // }
-        //
-        // // DELETE an item.
-        // restTemplate.delete(BASE_URL + "/item/2");
-        // System.out.println("Deleted item 2");
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    private Collection<Employee> requestAllEmployees() {
+        ResponseEntity<Collection> allEmployeesResponse = restTemplate.getForEntity(BASE_URL, Collection.class);
+        return allEmployeesResponse.getBody();
     }
 }

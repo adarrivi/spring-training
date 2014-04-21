@@ -1,6 +1,6 @@
 package com.adarrivi.webservice.server.rest.controller;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,14 +16,14 @@ import com.adarrivi.webservice.server.core.service.EmployeeService;
 
 @RestController
 @RequestMapping(value = "/employee")
-public class RestfulEmployeeController {
+public class RestEmployeeController {
 
     private static final String JSON_XML_CONTENT_TYPES = "Content-Type=application/json, application/xml";
     @Autowired
     private EmployeeService employeeService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Employee> getEmployees() {
+    public Collection<Employee> getEmployees() {
         return employeeService.getEmployees();
     }
 
