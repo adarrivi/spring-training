@@ -13,12 +13,13 @@ function doGetEmployeesAsXml() {
 		},
 
 		success : function(dataXmlDom) {
-			var id = dataXmlDom.documentElement.children[0].textContent;
-			var name = dataXmlDom.documentElement.children[1].textContent;
-			var salary = dataXmlDom.documentElement.children[2].textContent;
+			var strMessage;
+			if (dataXmlDom.length != 0) {
+				strMessage = "Employee xml data: " + JSON.stringify(dataXmlDom);
 
-			var strMessage = "Employee data, after parsing XML: [" + id + "] "
-					+ name + ", salary " + salary;
+			} else {
+				strMessage = "Empty list received";
+			}
 			$("#myMessageArea").html(strMessage);
 		},
 
@@ -38,8 +39,7 @@ function doGetEmployeesAsJson() {
 		},
 
 		success : function(dataObj) {
-			var strMessage = "JSON result: "
-					+ JSON.stringify(dataObj);
+			var strMessage = "JSON result: " + JSON.stringify(dataObj);
 			$("#myMessageArea").html(strMessage);
 		},
 
