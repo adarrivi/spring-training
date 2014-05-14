@@ -1,4 +1,4 @@
-package com.adarrivi.webservice.client.config;
+package com.adarrivi.springdata.config;
 
 import java.util.Properties;
 
@@ -27,7 +27,8 @@ public class AppConfiguration {
     @Bean
     public DataSource dataSource() {
         EmbeddedDatabaseBuilder databaseBuilder = new EmbeddedDatabaseBuilder();
-        return databaseBuilder.setType(EmbeddedDatabaseType.HSQL).addScript("classpath:hsqldbSchema.sql").build();
+        return databaseBuilder.setType(EmbeddedDatabaseType.HSQL).addScript("classpath:hsqldbSchema.sql")
+                .addScript("classpath:initialData.sql").build();
     }
 
     @Bean
