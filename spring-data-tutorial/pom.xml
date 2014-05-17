@@ -90,13 +90,7 @@
 			<version>${org.springframework.data-jpa.version}</version>
 		</dependency>
 
-		<!-- Embedded Relational Database -->
-		<dependency>
-			<groupId>org.hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
-			<version>${hsqldb.version}</version>
-		</dependency>
-		<!-- Mysql db dependency -->
+		<!-- Mysql connector for the databse -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -121,7 +115,7 @@
 
 	<build>
 		<plugins>
-			<!-- To set the jdk version -->
+			<!-- To set the jdk version for the maven compiler -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -132,7 +126,8 @@
 				</configuration>
 			</plugin>
 
-
+			<!-- Plugin to execute the sql migration scripts -->
+			<!-- Usage: mvn flyway:clean compile flyway:migrate -->
 			<plugin>
 				<groupId>org.flywaydb</groupId>
 				<artifactId>flyway-maven-plugin</artifactId>

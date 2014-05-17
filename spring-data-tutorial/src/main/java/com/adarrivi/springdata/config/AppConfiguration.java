@@ -8,8 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -24,17 +23,22 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan(basePackages = { "com.adarrivi" })
 public class AppConfiguration {
 
+    private static final String ENTITIES_PACKAGE = "com.adarrivi";
+
     @Bean
     public DataSource dataSource() {
-        EmbeddedDatabaseBuilder databaseBuilder = new EmbeddedDatabaseBuilder();
-        return databaseBuilder.setType(EmbeddedDatabaseType.HSQL).addScript("classpath:hsqldbSchema.sql")
-                .addScript("classpath:initialData.sql").build();
+        DriverManagerDataSource datasource = new DriverManagerDataSource();
+        datasource.setDriverClassName("com.mysql.jdbc.Driver");
+        datasource.setUrl("jdbc:mysql://localhost/spring_training_data");
+        datasource.setUsername("training");
+        datasource.setPassword("training");
+        return datasource;
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager() {
+    public PlatformTransactionManager transactionManager(LocalContainerEntityManagerFactoryBean entityManagerFactory) {
         JpaTransactionManager txManager = new JpaTransactionManager();
-        txManager.setEntityManagerFactory(entityManagerFactory().nativeEntityManagerFactory);
+        txManager.setEntityManagerFactory(entityManagerFactory.getObject());
         return txManager;
     }
 
@@ -43,16 +47,16 @@ public class AppConfiguration {
         HibernateJpaVendorAdapter hibernateJpaVendorAdapter = new HibernateJpaVendorAdapter();
         hibernateJpaVendorAdapter.setShowSql(false);
         hibernateJpaVendorAdapter.setGenerateDdl(true);
-        hibernateJpaVendorAdapter.setDatabase(Database.HSQL);
+        hibernateJpaVendorAdapter.setDatabase(Database.MYSQL);
         return hibernateJpaVendorAdapter;
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(JpaVendorAdapter hibernateVendorAdapter, DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
-        entityManagerFactory.setDataSource(dataSource());
-        entityManagerFactory.setPackagesToScan("com.adarrivi");
-        entityManagerFactory.setJpaVendorAdapter(hibernateVendorAdapter());
+        entityManagerFactory.setDataSource(dataSource);
+        entityManagerFactory.setPackagesToScan(ENTITIES_PACKAGE);
+        entityManagerFactory.setJpaVendorAdapter(hibernateVendorAdapter);
         Properties properties = new Properties();
         properties.put("hibernate.connection.autocommit", true);
         properties.put("hibernate.format_sql", true);
