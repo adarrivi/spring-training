@@ -1,6 +1,7 @@
 package com.adarrivi.springdata.core.entity;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +17,7 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column
+    @Column(name = "car_class")
     private String carClass;
     @Column
     private BigDecimal price;
@@ -42,6 +43,26 @@ public class Vehicle {
 
     public BigDecimal getPrice() {
         return price;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(carClass);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Vehicle)) {
+            return false;
+        }
+        Vehicle other = (Vehicle) obj;
+        return carClass.equals(other.carClass);
     }
 
     @Override

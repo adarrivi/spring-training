@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.adarrivi.springdata.core.dao.BookingJpaRepository;
+import com.adarrivi.springdata.core.dao.VehicleJpaRepository;
 import com.adarrivi.springdata.core.entity.Booking;
 import com.adarrivi.springdata.core.entity.Vehicle;
 import com.adarrivi.springdata.integration.GenericIntegrationTest;
@@ -19,21 +20,19 @@ public class BookingJpaRepositoryIntegrationTest extends GenericIntegrationTest 
 
     @Autowired
     private BookingJpaRepository victim;
+    @Autowired
+    private VehicleJpaRepository vehicleJpaRepository;
 
     private List<Booking> outputBookings;
 
     @Test
     public void findAll_ReturnsResultsFromRepository() {
-        whenFindAll();
-        verifyOutputResultNotEmpty();
+        outputBookings = victim.findAll();
+        thenOutputBookingsShouldNotBeEmpty();
         logOutputResult();
     }
 
-    private void whenFindAll() {
-        outputBookings = victim.findAll();
-    }
-
-    private void verifyOutputResultNotEmpty() {
+    private void thenOutputBookingsShouldNotBeEmpty() {
         Assert.assertNotNull(outputBookings);
         Assert.assertFalse(outputBookings.isEmpty());
     }
@@ -46,10 +45,16 @@ public class BookingJpaRepositoryIntegrationTest extends GenericIntegrationTest 
 
     @Test
     public void findByVehicle_ReturnsWithVehicle() {
-        Vehicle vehicle = new Vehicle(1);
+        Vehicle vehicle = vehicleJpaRepository.findOne(1);
         outputBookings = victim.findByVehicle(vehicle);
-        verifyOutputResultNotEmpty();
+        thenOutputBookingsShouldNotBeEmpty();
+        thenBookingsShouldBeOnVehicle(vehicle);
         logOutputResult();
     }
 
+    private void thenBookingsShouldBeOnVehicle(Vehicle expectedVehicle) {
+        for (Booking booking : outputBookings) {
+            Assert.assertEquals(expectedVehicle, booking.getVehicle());
+        }
+    }
 }
