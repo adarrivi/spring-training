@@ -18,10 +18,9 @@
 		<org.springframework.version>4.0.2.RELEASE</org.springframework.version>
 		<org.springframework.data-jpa.version>1.5.0.RELEASE</org.springframework.data-jpa.version>
 		<org.hibernate.jpa.version>1.0.1.Final</org.hibernate.jpa.version>
-
+		<mysql.connector.version>5.1.30</mysql.connector.version>
 		<!-- Test -->
 		<junit.version>4.11</junit.version>
-		<mockito.version>1.9.5</mockito.version>
 	</properties>
 
 	<dependencies>
@@ -33,12 +32,13 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>${org.slf4j.version}</version>
 		</dependency>
-		<!-- sfl4 to log4j adaptor -->
+		<!-- sfl4 to log4j adapter -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${org.slf4j.version}</version>
 		</dependency>
+
 		<!-- Adding spring-core to remove the commons logging dependency in favor 
 			of sfl4j -->
 		<dependency>
@@ -59,17 +59,11 @@
 			<version>${org.springframework.version}</version>
 		</dependency>
 
-		<!-- Jpa dependencies -->
+		<!-- Spring Data dependencies -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>${org.springframework.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-jpa</artifactId>
-			<version>${org.springframework.data-jpa.version}</version>
 		</dependency>
 
 		<dependency>
@@ -90,12 +84,25 @@
 			<version>${hibernate.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>${org.springframework.data-jpa.version}</version>
+		</dependency>
+
 		<!-- Embedded Relational Database -->
 		<dependency>
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 			<version>${hsqldb.version}</version>
 		</dependency>
+		<!-- Mysql db dependency -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.connector.version}</version>
+		</dependency>
+
 
 		<!-- Testing dependencies -->
 		<dependency>
@@ -110,13 +117,6 @@
 			<version>${org.springframework.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-all</artifactId>
-			<version>${mockito.version}</version>
-			<scope>test</scope>
-		</dependency>
-
 	</dependencies>
 
 	<build>
@@ -131,6 +131,27 @@
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
+
+
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<url>jdbc:mysql://localhost/spring_training_data</url>
+					<user>training</user>
+					<password>training</password>
+					<driver>com.mysql.jdbc.Driver</driver>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>mysql</groupId>
+						<artifactId>mysql-connector-java</artifactId>
+						<version>${mysql.connector.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+
 		</plugins>
 	</build>
 </project>

@@ -4,21 +4,16 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.adarrivi.springdata.config.AppConfiguration;
 import com.adarrivi.springdata.core.dao.BookingJpaRepository;
 import com.adarrivi.springdata.core.entity.Booking;
 import com.adarrivi.springdata.core.entity.Vehicle;
+import com.adarrivi.springdata.integration.GenericIntegrationTest;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { AppConfiguration.class })
-public class BookingJpaRepositoryIntegrationTest {
+public class BookingJpaRepositoryIntegrationTest extends GenericIntegrationTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BookingJpaRepositoryIntegrationTest.class);
 

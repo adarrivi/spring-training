@@ -1,5 +1,7 @@
 package com.adarrivi.springdata.core.entity;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,14 +19,14 @@ public class Vehicle {
     @Column
     private String carClass;
     @Column
-    private float price;
+    private BigDecimal price;
 
     Vehicle() {
         // Needed by hibernate
     }
 
     // Used for the new vehicles
-    public Vehicle(String carClass, float price) {
+    public Vehicle(String carClass, BigDecimal price) {
         this.carClass = carClass;
         this.price = price;
     }
@@ -38,7 +40,7 @@ public class Vehicle {
         this.id = id;
     }
 
-    public float getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
@@ -46,7 +48,5 @@ public class Vehicle {
     public String toString() {
         return "Vehicle [id=" + id + ", carClass=" + carClass + ", price=" + price + "]";
     }
-    
-    
 
 }
