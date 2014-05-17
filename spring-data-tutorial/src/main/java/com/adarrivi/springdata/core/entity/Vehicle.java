@@ -32,11 +32,6 @@ public class Vehicle {
         this.price = price;
     }
 
-    // Used to load vehicles
-    public String getCarClass() {
-        return carClass;
-    }
-
     public Vehicle(Integer id) {
         this.id = id;
     }
