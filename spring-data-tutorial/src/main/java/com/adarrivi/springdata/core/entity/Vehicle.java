@@ -23,17 +23,30 @@ public class Vehicle {
         // Needed by hibernate
     }
 
+    // Used for the new vehicles
     public Vehicle(String carClass, float price) {
         this.carClass = carClass;
         this.price = price;
     }
 
+    // Used to load vehicles
     public String getCarClass() {
         return carClass;
+    }
+
+    public Vehicle(Integer id) {
+        this.id = id;
     }
 
     public float getPrice() {
         return price;
     }
+
+    @Override
+    public String toString() {
+        return "Vehicle [id=" + id + ", carClass=" + carClass + ", price=" + price + "]";
+    }
+    
+    
 
 }
