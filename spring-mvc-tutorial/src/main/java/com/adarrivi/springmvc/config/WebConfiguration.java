@@ -1,6 +1,7 @@
 package com.adarrivi.springmvc.config;
 
-import com.adarrivi.springmvc.core.domain.Supplier;
+import com.adarrivi.springmvc.rest.dto.FraudRq;
+import com.adarrivi.springmvc.rest.dto.FraudRs;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -38,7 +39,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public Jaxb2Marshaller jaxb2Marshaller() {
         Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();
-        jaxb2Marshaller.setClassesToBeBound(Supplier.class);
+        jaxb2Marshaller.setClassesToBeBound(FraudRq.class, FraudRs.class);
         return jaxb2Marshaller;
     }
 
