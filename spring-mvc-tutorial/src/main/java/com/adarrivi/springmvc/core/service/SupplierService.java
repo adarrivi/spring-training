@@ -8,7 +8,7 @@ public interface SupplierService {
 
     void insert(Supplier supplier);
 
-    void delete(Supplier supplier);
+    void delete(int supplierId);
 
     void update(Supplier supplier);
 

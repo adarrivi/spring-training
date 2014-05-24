@@ -1,6 +1,7 @@
 package com.adarrivi.springmvc.core.service.impl;
 
 
+import com.adarrivi.springmvc.TestMvcBuilder;
 import com.adarrivi.springmvc.core.domain.Supplier;
 import com.adarrivi.springmvc.core.exception.InvalidOperationException;
 import com.adarrivi.springmvc.core.service.SupplierService;
@@ -87,7 +88,7 @@ public class SupplierServiceInMemoryImplTest {
     }
 
     private void whenDelete() {
-        victim.delete(inputSupplier);
+        victim.delete(inputSupplier.getId());
     }
 
     private void thenSupplierShouldNotBeInMemory(Supplier supplier) {
@@ -158,7 +159,7 @@ public class SupplierServiceInMemoryImplTest {
     }
 
     private void thenSupplierListShouldContain(Supplier expectedSupplier) {
-        Assert.assertTrue(inMemorySuppliers.containsKey(expectedSupplier.getId()));
+        Assert.assertTrue(outputSuppliers.contains(expectedSupplier));
     }
 
 }
