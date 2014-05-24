@@ -1,6 +1,6 @@
-package com.adarrivi.webservice.server.config;
+package com.adarrivi.springmvc.config;
 
-import com.adarrivi.webservice.server.core.domain.Employee;
+import com.adarrivi.springmvc.core.domain.Supplier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -38,7 +38,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     @Bean
     public Jaxb2Marshaller jaxb2Marshaller() {
         Jaxb2Marshaller jaxb2Marshaller = new Jaxb2Marshaller();
-        jaxb2Marshaller.setClassesToBeBound(Employee.class);
+        jaxb2Marshaller.setClassesToBeBound(Supplier.class);
         return jaxb2Marshaller;
     }
 
