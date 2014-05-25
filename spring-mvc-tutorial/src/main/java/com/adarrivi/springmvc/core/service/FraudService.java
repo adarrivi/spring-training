@@ -6,4 +6,6 @@ import com.adarrivi.springmvc.rest.dto.FraudRs;
 public interface FraudService {
 
     FraudRs creditCardNameCheck(FraudRq request);
+
+    FraudRs creditCardNumberCheck(FraudRq request);
 }

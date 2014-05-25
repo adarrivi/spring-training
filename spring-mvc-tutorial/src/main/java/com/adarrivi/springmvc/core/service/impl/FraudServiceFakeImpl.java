@@ -45,4 +45,11 @@ class FraudServiceFakeImpl implements FraudService {
         FraudRsData data = new FraudRsData(status);
         return new FraudRs(meta, data);
     }
+
+
+    @Override
+    public FraudRs creditCardNumberCheck(FraudRq request) {
+        //TODO To implement for the exercise!!!
+        return null;
+    }
 }
