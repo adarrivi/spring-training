@@ -1,0 +1,90 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.adarrivi</groupId>
+    <artifactId>spring-final-solution</artifactId>
+    <version>1.0</version>
+    <packaging>war</packaging>
+    <properties>
+        <!-- Generic properties -->
+        <jdk.version>1.8</jdk.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!--Logging -->
+        <org.slf4j.version>1.7.6</org.slf4j.version>
+        <!-- Spring -->
+        <org.springframework.version>4.0.3.RELEASE</org.springframework.version>
+        <!-- Spring MVC: Json parsing -->
+        <com.fasterxml.jackson.version>2.3.3</com.fasterxml.jackson.version>
+        <!-- Spring Data -->
+        <org.springframework.data-jpa.version>1.5.0.RELEASE</org.springframework.data-jpa.version>
+        <org.hibernate.jpa.version>1.0.1.Final</org.hibernate.jpa.version>
+        <hibernate.version>4.2.9.Final</hibernate.version>
+        <mysql.connector.version>5.1.30</mysql.connector.version>
+        <!-- Plugin for load database configuration -->
+        <flywaydb.version>3.0</flywaydb.version>
+        <!-- Test -->
+        <junit.version>4.11</junit.version>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.adarrivi</groupId>
+            <artifactId>spring-final-exercise</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <!-- Testing dependencies -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${org.springframework.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- To set the proper jdk version in the classpath -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                </configuration>
+            </plugin>
+
+            <!-- Plugin to execute the sql migration scripts -->
+            <!-- Usage: mvn flyway:clean compile flyway:migrate -->
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>${flywaydb.version}</version>
+                <configuration>
+                    <url>jdbc:mysql://localhost/spring_training_data</url>
+                    <user>training</user>
+                    <password>training</password>
+                    <driver>com.mysql.jdbc.Driver</driver>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>${mysql.connector.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+</project>

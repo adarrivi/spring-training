@@ -170,7 +170,7 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>${flywaydb.version}</version>
                 <configuration>
-                    <url>jdbc:mysql://localhost/spring_training_data</url>
+                    <url>jdbc:mysql://localhost/spring_training_exercise</url>
                     <user>training</user>
                     <password>training</password>
                     <driver>com.mysql.jdbc.Driver</driver>
