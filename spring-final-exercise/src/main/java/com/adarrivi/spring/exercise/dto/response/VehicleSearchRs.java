@@ -1,4 +1,4 @@
-package com.adarrivi.spring.exercise.dto;
+package com.adarrivi.spring.exercise.dto.response;
 
 import java.util.List;
 

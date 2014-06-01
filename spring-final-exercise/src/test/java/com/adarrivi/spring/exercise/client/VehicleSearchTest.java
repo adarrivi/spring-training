@@ -1,7 +1,7 @@
 package com.adarrivi.spring.exercise.client;
 
-import com.adarrivi.spring.exercise.dto.ResponseStatus;
-import com.adarrivi.spring.exercise.dto.VehicleSearchRs;
+import com.adarrivi.spring.exercise.dto.response.ResponseStatus;
+import com.adarrivi.spring.exercise.dto.response.VehicleSearchRs;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +20,7 @@ import java.util.List;
 public class VehicleSearchTest {
 
     private static final String GET_ALL_VEHICLES_URL = "http://localhost:8080/vehicles";
-    private static final List<String> EXPECTED_CAR_CLASSES = Arrays.asList("MVCR", "MVDD", "XRDV");
+    private static final List<String> EXPECTED_CAR_CLASSES = Arrays.asList("EDCRMD", "DDSERD", "XXDEDR");
 
     @Autowired
     private RestTemplate restTemplate;
