@@ -4,31 +4,21 @@ import com.adarrivi.spring.exercise.dto.response.BookingSearchRs;
 import com.adarrivi.spring.exercise.dto.response.ResponseStatus;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestClientConfig.class})
 public class BookingSearchTest {
 
     private static final String BOOKING_SEARCH_URL = "http://localhost:8080/bookings";
     private static final String EXISTING_RESERVATION_NUMBER = "ASDF322342A32";
     private static final String NON_EXISTING_RESERVATION_NUMBER = "XXXXXXXXXXXXXX";
 
-
-    @Autowired
-    private RestTemplate restTemplate;
+    private RestTemplate restTemplate = new RestTemplate();
 
     private ResponseEntity<BookingSearchRs> httpResponse;
     private BookingSearchRs bookingSearchRs;
@@ -41,9 +31,7 @@ public class BookingSearchTest {
     }
 
     private void doHttpGetForBookingSearch(String reservationNumber) {
-        Map<String, String> urlParameters = new HashMap<>();
-        urlParameters.put("reservationNumber", reservationNumber);
-        httpResponse = restTemplate.getForEntity(BOOKING_SEARCH_URL, BookingSearchRs.class, urlParameters);
+        httpResponse = restTemplate.getForEntity(BOOKING_SEARCH_URL + "?reservationNumber={reservationNumber}", BookingSearchRs.class, reservationNumber);
         bookingSearchRs = httpResponse.getBody();
     }
 
@@ -81,7 +69,7 @@ public class BookingSearchTest {
     }
 
     private void assertPickUpDateEqualsTo(String expectedDateAsString) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD HH:MM:SS");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Date expectedDate = dateFormat.parse(expectedDateAsString);
             Assert.assertEquals(expectedDate, bookingSearchRs.getPickUpDate());

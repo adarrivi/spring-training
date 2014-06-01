@@ -5,19 +5,13 @@ import com.adarrivi.spring.exercise.dto.response.NewBookingRs;
 import com.adarrivi.spring.exercise.dto.response.ResponseStatus;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 import java.util.UUID;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestClientConfig.class})
 public class BookingCreationTest {
 
     private static final String NEW_BOOKING_URL = "http://localhost:8080/bookings";
@@ -25,8 +19,7 @@ public class BookingCreationTest {
     private static final String NOT_EXISTING_CAR_CLASS = "XXXXXX";
 
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private RestTemplate restTemplate = new RestTemplate();
 
     private NewBookingRq newBookingRq;
     private ResponseEntity<NewBookingRs> httpResponse;

@@ -17,4 +17,16 @@ public class NewBookingRq {
         this.carClass = carClass;
         this.pickUpDate = pickUpDate;
     }
+
+    public String getReservationNumber() {
+        return reservationNumber;
+    }
+
+    public String getCarClass() {
+        return carClass;
+    }
+
+    public Date getPickUpDate() {
+        return pickUpDate;
+    }
 }
