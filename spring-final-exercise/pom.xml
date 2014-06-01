@@ -15,8 +15,6 @@
         <hibernate.version>4.2.9.Final</hibernate.version>
         <org.springframework.version>4.0.3.RELEASE</org.springframework.version>
         <com.fasterxml.jackson.version>2.3.3</com.fasterxml.jackson.version>
-        <!-- Embedded server -->
-        <jettyVersion>9.1.5.v20140505</jettyVersion>
         <!-- Test -->
         <junit.version>4.11</junit.version>
     </properties>
