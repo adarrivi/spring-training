@@ -7,10 +7,10 @@ import com.adarrivi.springmvc.integration.GenericWebIntegrationTest;
 import com.adarrivi.springmvc.rest.dto.FraudRq;
 import com.adarrivi.springmvc.rest.dto.FraudRs;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.test.web.servlet.ResultActions;
@@ -41,8 +41,14 @@ public class FraudControllerXmlAndJsonIntegrationTest extends GenericWebIntegrat
     private MediaType mediaType;
     private String responseAsString;
 
-    @Autowired
     private Jaxb2Marshaller jaxb2Marshaller;
+
+    @Before
+    public void setUp() {
+        super.setUp();
+        jaxb2Marshaller = new Jaxb2Marshaller();
+        jaxb2Marshaller.setClassesToBeBound(FraudRq.class, FraudRs.class);
+    }
 
     @Test
     public void requestValidJson() throws Exception {
